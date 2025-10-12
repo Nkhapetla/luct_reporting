@@ -27,7 +27,7 @@ function Monitoring() {
         console.log("👨‍🏫 Fetching monitoring data for lecturer:", user.id);
 
         // Fetch attendance data for lecturer's courses
-        const response = await axios.get(`http://localhost:5000/api/lecturer/monitoring/${user.id}`, {
+        const response = await axios.get(`https://luct-reporting-cfvn.onrender.com/api/lecturer/monitoring/${user.id}`, {
           headers: { "x-user-role": "lecturer" }
         });
 
