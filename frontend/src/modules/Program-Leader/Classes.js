@@ -23,15 +23,15 @@ function Classes() {
       
       // Fetch classes, class-courses mappings, and courses in parallel
       const [classesResponse, classCoursesResponse, coursesResponse] = await Promise.all([
-        axios.get("http://localhost:5000/api/classes", {
+        axios.get("https://luct-reporting-cfvn.onrender.com/api/classes", {
           headers: { "x-user-role": userRole },
           timeout: 10000
         }),
-        axios.get("http://localhost:5000/api/class-courses", {
+        axios.get("https://luct-reporting-cfvn.onrender.com/api/class-courses", {
           headers: { "x-user-role": userRole },
           timeout: 10000
         }),
-        axios.get("http://localhost:5000/api/courses", {
+        axios.get("https://luct-reporting-cfvn.onrender.com/api/courses", {
           headers: { "x-user-role": userRole },
           timeout: 10000
         })
