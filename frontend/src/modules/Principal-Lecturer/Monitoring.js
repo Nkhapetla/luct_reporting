@@ -17,7 +17,7 @@ function PRLMonitoring() {
         console.log("👁️ PRL fetching monitoring data...");
         
         // First try the PRL monitoring endpoint that includes lecturer names
-        const response = await axios.get("http://localhost:5000/api/prl/monitoring", {
+        const response = await axios.get("https://luct-reporting-cfvn.onrender.com/api/prl/monitoring", {
           headers: { "x-user-role": "pl" }
         });
         
@@ -35,9 +35,9 @@ function PRLMonitoring() {
         try {
           console.log("🔄 Trying fallback with combined data approach...");
           const [classesResponse, coursesResponse, classCoursesResponse] = await Promise.all([
-            axios.get("http://localhost:5000/api/classes", { headers: { "x-user-role": "pl" } }),
-            axios.get("http://localhost:5000/api/courses", { headers: { "x-user-role": "pl" } }),
-            axios.get("http://localhost:5000/api/class-courses", { headers: { "x-user-role": "pl" } })
+            axios.get("https://luct-reporting-cfvn.onrender.com/api/classes", { headers: { "x-user-role": "pl" } }),
+            axios.get("https://luct-reporting-cfvn.onrender.com/api/courses", { headers: { "x-user-role": "pl" } }),
+            axios.get("https://luct-reporting-cfvn.onrender.com/api/class-courses", { headers: { "x-user-role": "pl" } })
           ]);
 
           // Create basic monitoring data first
@@ -75,7 +75,7 @@ function PRLMonitoring() {
               if (item.lecturer_id && !item.lecturer_name) {
                 try {
                   const lecturerResponse = await axios.get(
-                    `http://localhost:5000/api/lecturer/${item.lecturer_id}`,
+                    `https://luct-reporting-cfvn.onrender.com/api/lecturer/${item.lecturer_id}`,
                     { headers: { "x-user-role": "pl" } }
                   );
                   return {
