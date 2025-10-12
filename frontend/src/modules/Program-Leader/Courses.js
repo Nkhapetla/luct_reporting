@@ -36,8 +36,8 @@ function Courses() {
         setError(null);
         
         const [coursesRes, lecturersRes] = await Promise.all([
-          axios.get("http://localhost:5000/api/courses", { headers: getHeaders() }),
-          axios.get("http://localhost:5000/api/lecturers", { headers: getHeaders() })
+          axios.get("https://luct-reporting-cfvn.onrender.com/api/courses", { headers: getHeaders() }),
+          axios.get("https://luct-reporting-cfvn.onrender.com/api/lecturers", { headers: getHeaders() })
         ]);
         
         setCourses(coursesRes.data);
@@ -97,7 +97,7 @@ function Courses() {
 
     setIsSubmitting(true);
     try {
-      const response = await axios.post("http://localhost:5000/api/courses", formData, {
+      const response = await axios.post("https://luct-reporting-cfvn.onrender.com/api/courses", formData, {
         headers: getHeaders()
       });
       
