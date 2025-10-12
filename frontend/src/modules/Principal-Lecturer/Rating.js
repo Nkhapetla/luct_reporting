@@ -28,7 +28,7 @@ function PRLRating() {
 
       // Fetch from both tables using correct endpoints with proper headers
       const [lecturerClassResponse, ratingResponse] = await Promise.all([
-        axios.get("http://localhost:5000/api/prl/lecturer_class_ratings", {
+        axios.get("https://luct-reporting-cfvn.onrender.com/api/prl/lecturer_class_ratings", {
           headers: { 
             "x-user-role": userRole,
             "x-user-stream": userStream 
@@ -42,7 +42,7 @@ function PRLRating() {
           return { data: [] };
         }),
         
-        axios.get("http://localhost:5000/api/prl/rating", {
+        axios.get("https://luct-reporting-cfvn.onrender.com/api/prl/rating", {
           headers: { 
             "x-user-role": userRole,
             "x-user-stream": userStream 
@@ -271,9 +271,6 @@ function PRLRating() {
           🔄 Refresh
         </button>
       </div>
-
-      {/* Rest of your component remains the same... */}
-      {/* ... (keep all the tab content from your previous component) ... */}
     </div>
   );
 }
