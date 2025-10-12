@@ -29,7 +29,7 @@ function Reports() {
   const downloadReportsExcel = async () => {
     setDownloadLoading(true);
     try {
-      const response = await axios.get("http://localhost:5000/api/pl/reports/excel", {
+      const response = await axios.get("https://luct-reporting-cfvn.onrender.com/api/pl/reports/excel", {
         headers: getHeaders(),
         responseType: 'blob'
       });
@@ -57,7 +57,7 @@ function Reports() {
   const downloadSummaryExcel = async () => {
     setDownloadLoading(true);
     try {
-      const response = await axios.get("http://localhost:5000/api/pl/reports/summary-excel", {
+      const response = await axios.get("https://luct-reporting-cfvn.onrender.com/api/pl/reports/summary-excel", {
         headers: getHeaders(),
         responseType: 'blob'
       });
@@ -112,7 +112,7 @@ function Reports() {
       
       // First try the PRL-specific reports endpoint
       try {
-        const response = await axios.get("http://localhost:5000/api/prl/reports", {
+        const response = await axios.get("https://luct-reporting-cfvn.onrender.com/api/prl/reports", {
           headers: getHeaders()
         });
         
@@ -134,7 +134,7 @@ function Reports() {
       }
 
       // Fallback: Get all reports and filter by PRL's stream
-      const response = await axios.get("http://localhost:5000/api/reports", {
+      const response = await axios.get("https://luct-reporting-cfvn.onrender.com/api/reports", {
         headers: getHeaders()
       });
       
@@ -191,7 +191,7 @@ function Reports() {
 
       // Try to submit to backend first
       try {
-        await axios.put(`http://localhost:5000/api/reports/${reportId}/feedback`, 
+        await axios.put(`https://luct-reporting-cfvn.onrender.com/api/reports/${reportId}/feedback`, 
           feedbackPayload, 
           { headers: getHeaders() }
         );
