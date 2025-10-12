@@ -12,7 +12,7 @@ function Monitoring() {
   const [searchLoading, setSearchLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false); // TRACK IF USER HAS SEARCHED
 
-  const backendURL = "http://localhost:5000/api";
+  const backendURL = "https://luct-reporting-cfvn.onrender.com/api";
 
   // IMPROVED SEARCH HANDLER
   const handleSearch = async (query, filter) => {
@@ -141,7 +141,7 @@ function Monitoring() {
 
   return (
     <div className="student-monitoring-container">
-      <h2>📋 Student Monitoring</h2>
+      <h2> Student Monitoring</h2>
       
       {/* IMPROVED SEARCH BAR */}
       <SearchBar 
@@ -210,7 +210,7 @@ function Monitoring() {
                       ? "🔄 Updating..."
                       : attendance[course.course_id]
                       ? "✅ Present"
-                      : "📝 Mark Present"}
+                      : " Mark Present"}
                   </button>
                 </td>
               </tr>
