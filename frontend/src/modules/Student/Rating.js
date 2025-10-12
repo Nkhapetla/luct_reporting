@@ -30,7 +30,7 @@ function Rating() {
   const handleRatingSearch = async (query, filter) => {
     setSearchLoading(true);
     try {
-      const response = await axios.get("http://localhost:5000/api/search/ratings", {
+      const response = await axios.get("https://luct-reporting-cfvn.onrender.com/api/search/ratings", {
         params: { 
           q: query,
           lecturer: filter,
@@ -58,7 +58,7 @@ function Rating() {
     const fetchData = async () => {
       try {
         // Fetch lecturers for the dropdown
-        const lecRes = await axios.get("http://localhost:5000/api/lecturers");
+        const lecRes = await axios.get("https://luct-reporting-cfvn.onrender.com/api/lecturers");
         setLecturers(lecRes.data);
       } catch (err) {
         console.error("Error fetching lecturers:", err);
@@ -69,7 +69,7 @@ function Rating() {
       if (user?.id) {
         try {
           const ratingRes = await axios.get(
-            `http://localhost:5000/api/student/ratings/${user.id}`,
+            `https://luct-reporting-cfvn.onrender.com/api/student/ratings/${user.id}`,
             { headers: { "x-user-role": "student" } }
           );
           setUserRatings(ratingRes.data);
@@ -107,7 +107,7 @@ function Rating() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/student/rating",
+        "https://luct-reporting-cfvn.onrender.com/api/student/rating",
         {
           student_id: user.id,
           lecturer_id: formData.lecturer_id,
@@ -122,7 +122,7 @@ function Rating() {
 
       // Refresh ratings
       const res = await axios.get(
-        `http://localhost:5000/api/student/ratings/${user.id}`,
+        `https://luct-reporting-cfvn.onrender.com/api/student/ratings/${user.id}`,
         { headers: { "x-user-role": "student" } }
       );
       setUserRatings(res.data);
