@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import axios from "axios";
 
-const API_BASE = "https://luct-reporting-cfvn.onrender.com";
-
 function Classes() {
   const [classes, setClasses] = useState([]);
   const [classCourses, setClassCourses] = useState({});
@@ -14,39 +12,57 @@ function Classes() {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const user = JSON.parse(localStorage.getItem("user")) || {};
-  const headers = { "x-user-role": user.role || "" };
+  const userRole = user.role || "";
 
   const fetchAllData = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
-
-      const [classesRes, classCoursesRes, coursesRes] = await Promise.all([
-        axios.get(`${API_BASE}/api/classes`, { headers }),
-        axios.get(`${API_BASE}/api/class-courses`, { headers }),
-        axios.get(`${API_BASE}/api/courses`, { headers })
+      
+      console.log("🏫 Fetching all classes and courses data...");
+      
+      const [classesResponse, classCoursesResponse, coursesResponse] = await Promise.all([
+        axios.get("https://luct-reporting-cfvn.onrender.com/api/classes", {
+          headers: { "x-user-role": userRole },
+          timeout: 10000
+        }),
+        axios.get("https://luct-reporting-cfvn.onrender.com/api/class-courses", {
+          headers: { "x-user-role": userRole },
+          timeout: 10000
+        }),
+        axios.get("https://luct-reporting-cfvn.onrender.com/api/courses", {
+          headers: { "x-user-role": userRole },
+          timeout: 10000
+        })
       ]);
-
-      setClasses(classesRes.data || []);
-      setAllCourses(coursesRes.data || []);
-
-      const classMap = {};
-      classCoursesRes.data.forEach(mapping => {
-        if (!classMap[mapping.class_id]) classMap[mapping.class_id] = [];
-        classMap[mapping.class_id].push(mapping);
+      
+      console.log(`✅ Found ${classesResponse.data.length} classes`);
+      console.log(`✅ Found ${classCoursesResponse.data.length} class-course mappings`);
+      console.log(`✅ Found ${coursesResponse.data.length} courses`);
+      
+      setClasses(classesResponse.data || []);
+      setAllCourses(coursesResponse.data || []);
+      
+      const classCoursesMap = {};
+      classCoursesResponse.data.forEach(mapping => {
+        if (!classCoursesMap[mapping.class_id]) {
+          classCoursesMap[mapping.class_id] = [];
+        }
+        classCoursesMap[mapping.class_id].push(mapping);
       });
-      setClassCourses(classMap);
-
+      
+      setClassCourses(classCoursesMap);
+      
     } catch (err) {
-      console.error(err);
-      setError("Failed to load classes data.");
+      console.error("❌ Error fetching data:", err);
+      setError("Failed to load classes data. Please try again.");
       setClasses([]);
       setClassCourses({});
       setAllCourses([]);
     } finally {
       setLoading(false);
     }
-  }, [headers]);
+  }, [userRole]);
 
   useEffect(() => {
     fetchAllData();
@@ -54,17 +70,25 @@ function Classes() {
 
   const enhancedClasses = useMemo(() => {
     return classes.map(cls => {
-      const mappings = classCourses[cls.id] || [];
-      const courses = mappings.map(m => {
-        const course = allCourses.find(c => c.id === m.course_id);
-        return course ? { ...course, ...m } : null;
+      const classCourseMappings = classCourses[cls.id] || [];
+      
+      const courses = classCourseMappings.map(mapping => {
+        const course = allCourses.find(c => c.id === mapping.course_id);
+        return course ? {
+          ...course,
+          lecturer_id: mapping.lecturer_id,
+          lecturer_name: mapping.lecturer_name,
+          mapping_id: mapping.id
+        } : null;
       }).filter(Boolean);
 
-      const streamCourses = filterStream ? courses.filter(c => c.stream === filterStream) : courses;
+      const streamCourses = filterStream 
+        ? courses.filter(course => course.stream === filterStream)
+        : courses;
 
       return {
         ...cls,
-        courses,
+        courses: courses,
         stream_courses: streamCourses,
         total_courses_count: courses.length,
         stream_courses_count: streamCourses.length,
@@ -73,27 +97,60 @@ function Classes() {
     });
   }, [classes, classCourses, allCourses, filterStream]);
 
-  // Filter classes by stream
   const filteredClasses = useMemo(() => {
     if (!filterStream) return enhancedClasses;
-    return enhancedClasses.filter(cls => cls.courses.some(c => c.stream === filterStream));
+    
+    return enhancedClasses.filter(cls => cls.courses.some(course => course.stream === filterStream));
   }, [enhancedClasses, filterStream]);
 
   const uniqueStreams = useMemo(() => {
-    const streams = enhancedClasses.flatMap(cls => cls.courses.map(c => c.stream).filter(Boolean));
-    return [...new Set(streams)].sort();
+    const allStreams = enhancedClasses.flatMap(cls => 
+      cls.courses.map(course => course.stream).filter(Boolean)
+    );
+    return [...new Set(allStreams)].sort();
   }, [enhancedClasses]);
 
-  const handleRefresh = () => setRefreshTrigger(prev => prev + 1);
-  const clearFilter = () => setFilterStream("");
-  const toggleClassExpansion = (id) => setExpandedClass(expandedClass === id ? null : id);
+  const handleRefresh = () => {
+    setRefreshTrigger(prev => prev + 1);
+  };
 
-  if (loading) return <div>Loading classes and courses...</div>;
-  if (error) return <div>Error: {error} <button onClick={handleRefresh}>Retry</button></div>;
+  const handleRetry = () => {
+    setError(null);
+    handleRefresh();
+  };
+
+  const clearFilter = () => {
+    setFilterStream("");
+  };
+
+  const toggleClassExpansion = (classId) => {
+    setExpandedClass(expandedClass === classId ? null : classId);
+  };
+
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+        <p>Loading classes and courses data...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="error-container">
+        <div className="error-icon">⚠️</div>
+        <div className="error-message">{error}</div>
+        <button onClick={handleRetry} className="retry-button">
+          Try Again
+        </button>
+      </div>
+    );
+  }
 
   return (
-    <div>
-      {/* Stream filter, statistics, and class cards logic here */}
+    <div className="classes-container">
+      {/* ... rest of your JSX as in original code ... */}
     </div>
   );
 }
