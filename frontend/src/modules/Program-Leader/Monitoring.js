@@ -32,7 +32,7 @@ function Monitoring() {
       
       // First try the PRL monitoring endpoint
       try {
-        const response = await axios.get("http://localhost:5000/api/prl/monitoring", {
+        const response = await axios.get("https://luct-reporting-cfvn.onrender.com/api/prl/monitoring", {
           headers: getHeaders()
         });
         
@@ -51,10 +51,10 @@ function Monitoring() {
 
       // Fallback: Combine data from multiple endpoints
       const [classesResponse, coursesResponse, classCoursesResponse, reportsResponse] = await Promise.all([
-        axios.get("http://localhost:5000/api/classes", { headers: getHeaders() }),
-        axios.get("http://localhost:5000/api/courses", { headers: getHeaders() }),
-        axios.get("http://localhost:5000/api/class-courses", { headers: getHeaders() }),
-        axios.get("http://localhost:5000/api/reports", { headers: getHeaders() })
+        axios.get("https://luct-reporting-cfvn.onrender.com/api/classes", { headers: getHeaders() }),
+        axios.get("https://luct-reporting-cfvn.onrender.com/api/courses", { headers: getHeaders() }),
+        axios.get("https://luct-reporting-cfvn.onrender.com/api/class-courses", { headers: getHeaders() }),
+        axios.get("https://luct-reporting-cfvn.onrender.com/api/reports", { headers: getHeaders() })
       ]);
 
       // Create monitoring data from combined sources
