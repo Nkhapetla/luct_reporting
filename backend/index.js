@@ -13,7 +13,11 @@ const app = express();
 
 // Enhanced CORS configuration
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: [
+    "http://localhost:3000",
+    "https://luct-reporting-theta.vercel.app",
+    "https://luct-reporting-cfvn.onrender.com"
+  ],
   credentials: true
 }));
 app.use(express.json());
