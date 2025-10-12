@@ -27,7 +27,7 @@ function Classes() {
 
         // Fetch classes and courses taught by this lecturer
         const response = await axios.get(
-          `http://localhost:5000/api/lecturer/classes/${user.id}`, 
+          `https://luct-reporting-cfvn.onrender.com/api/lecturer/classes/${user.id}`, 
           {
             headers: { "x-user-role": "lecturer" }
           }
