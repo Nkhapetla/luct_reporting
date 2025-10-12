@@ -36,7 +36,7 @@ function Rating() {
       let classesData = [];
 
       try {
-        const lecturersRes = await axios.get("http://localhost:5000/api/lecturers", { headers: getHeaders() });
+        const lecturersRes = await axios.get("https://luct-reporting-cfvn.onrender.com/api/lecturers", { headers: getHeaders() });
         lecturersData = lecturersRes.data;
         console.log("✅ Loaded lecturers data");
       } catch (err) {
@@ -44,7 +44,7 @@ function Rating() {
       }
 
       try {
-        const studentsRes = await axios.get("http://localhost:5000/api/students", { headers: getHeaders() });
+        const studentsRes = await axios.get("https://luct-reporting-cfvn.onrender.com/api/students", { headers: getHeaders() });
         studentsData = studentsRes.data;
         console.log("✅ Loaded students data");
       } catch (err) {
@@ -52,7 +52,7 @@ function Rating() {
       }
 
       try {
-        const coursesRes = await axios.get("http://localhost:5000/api/courses", { headers: getHeaders() });
+        const coursesRes = await axios.get("https://luct-reporting-cfvn.onrender.com/api/courses", { headers: getHeaders() });
         coursesData = coursesRes.data;
         console.log("✅ Loaded courses data");
       } catch (err) {
@@ -60,7 +60,7 @@ function Rating() {
       }
 
       try {
-        const classesRes = await axios.get("http://localhost:5000/api/classes", { headers: getHeaders() });
+        const classesRes = await axios.get("https://luct-reporting-cfvn.onrender.com/api/classes", { headers: getHeaders() });
         classesData = classesRes.data;
         console.log("✅ Loaded classes data");
       } catch (err) {
@@ -73,7 +73,7 @@ function Rating() {
 
       try {
         // Use PRL rating endpoint
-        const studentRatingsRes = await axios.get("http://localhost:5000/api/prl/rating", { headers: getHeaders() });
+        const studentRatingsRes = await axios.get("https://luct-reporting-cfvn.onrender.com/api/prl/rating", { headers: getHeaders() });
         studentRatings = studentRatingsRes.data;
         console.log(`✅ Found ${studentRatings.length} student ratings from /api/prl/rating`);
       } catch (err) {
@@ -82,7 +82,7 @@ function Rating() {
 
       try {
         // Use PRL lecturer class ratings endpoint
-        const lecturerRatingsRes = await axios.get("http://localhost:5000/api/prl/lecturer_class_ratings", { headers: getHeaders() });
+        const lecturerRatingsRes = await axios.get("https://luct-reporting-cfvn.onrender.com/api/prl/lecturer_class_ratings", { headers: getHeaders() });
         lecturerRatings = lecturerRatingsRes.data;
         console.log(`✅ Found ${lecturerRatings.length} lecturer ratings from /api/prl/lecturer_class_ratings`);
       } catch (err) {
@@ -147,8 +147,6 @@ function Rating() {
     fetchRatings();
   }, [fetchRatings, refreshTrigger]);
 
-  // Rest of the component remains the same...
-  // [Keep all the existing useMemo hooks, filter functions, and UI rendering code]
   // Get unique values for filters and statistics
   const { uniqueLecturers, uniqueCourses, totalRatings, averageRating, ratingDistribution } = useMemo(() => {
     const lecturers = [...new Set(ratings.map(r => r.lecturer_name).filter(Boolean))].sort();
