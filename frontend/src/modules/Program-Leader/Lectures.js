@@ -42,9 +42,9 @@ function Lectures() {
       
       // Fetch courses, lecturers, and class-courses assignments
       const [coursesRes, lecturersRes, classCoursesRes] = await Promise.all([
-        axios.get("http://localhost:5000/api/courses", { headers: getHeaders() }),
-        axios.get("http://localhost:5000/api/lecturers", { headers: getHeaders() }),
-        axios.get("http://localhost:5000/api/class-courses", { headers: getHeaders() })
+        axios.get("https://luct-reporting-cfvn.onrender.com/api/courses", { headers: getHeaders() }),
+        axios.get("https://luct-reporting-cfvn.onrender.com/api/lecturers", { headers: getHeaders() }),
+        axios.get("https://luct-reporting-cfvn.onrender.com/api/class-courses", { headers: getHeaders() })
       ]);
       
       console.log(`✅ Found ${coursesRes.data.length} courses`);
@@ -113,7 +113,7 @@ function Lectures() {
 
       console.log("📤 Sending assignment payload:", assignmentPayload);
 
-      const response = await axios.post("http://localhost:5000/api/class-courses", 
+      const response = await axios.post("https://luct-reporting-cfvn.onrender.com/api/class-courses", 
         assignmentPayload, 
         { headers: getHeaders() }
       );
@@ -161,7 +161,7 @@ function Lectures() {
     hideDeleteConfirmation();
 
     try {
-      await axios.delete(`http://localhost:5000/api/class-courses/${assignmentId}`, {
+      await axios.delete(`https://luct-reporting-cfvn.onrender.com/api/class-courses/${assignmentId}`, {
         headers: getHeaders()
       });
 
