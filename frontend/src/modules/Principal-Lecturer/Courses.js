@@ -17,7 +17,7 @@ function PRLCourses() {
         console.log("📚 PRL fetching courses with lecturer data...");
         
         // First try the PRL courses endpoint that includes lecturer names
-        const response = await axios.get("http://localhost:5000/api/prl/courses", {
+        const response = await axios.get("https://luct-reporting-cfvn.onrender.com/api/prl/courses", {
           headers: { "x-user-role": "pl" }
         });
         
@@ -34,7 +34,7 @@ function PRLCourses() {
         // Fallback: try the regular courses endpoint and fetch lecturer names
         try {
           console.log("🔄 Trying fallback to regular courses endpoint...");
-          const fallbackResponse = await axios.get("http://localhost:5000/api/courses", {
+          const fallbackResponse = await axios.get("https://luct-reporting-cfvn.onrender.com/api/courses", {
             headers: { "x-user-role": "pl" }
           });
           
@@ -48,7 +48,7 @@ function PRLCourses() {
               if (course.lecturer_id) {
                 try {
                   const lecturerResponse = await axios.get(
-                    `http://localhost:5000/api/lecturer/${course.lecturer_id}`,
+                    `https://luct-reporting-cfvn.onrender.com/api/lecturer/${course.lecturer_id}`,
                     { headers: { "x-user-role": "pl" } }
                   );
                   return {
