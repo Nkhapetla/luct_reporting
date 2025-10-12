@@ -56,7 +56,7 @@ function PRLReports() {
       
       console.log("📊 PRL fetching reports for stream:", userStream);
       
-      const response = await axios.get("http://localhost:5000/api/prl/reports", {
+      const response = await axios.get("https://luct-reporting-cfvn.onrender.com/api/prl/reports", {
         headers: getHeaders()
       });
       
@@ -75,8 +75,8 @@ function PRLReports() {
   const fetchCoursesAndClasses = async () => {
     try {
       const [coursesResponse, classesResponse] = await Promise.all([
-        axios.get("http://localhost:5000/api/courses", { headers: getHeaders() }),
-        axios.get("http://localhost:5000/api/classes", { headers: getHeaders() })
+        axios.get("https://luct-reporting-cfvn.onrender.com/api/courses", { headers: getHeaders() }),
+        axios.get("https://luct-reporting-cfvn.onrender.com/api/classes", { headers: getHeaders() })
       ]);
 
       // Filter courses by PRL's stream
@@ -95,7 +95,7 @@ function PRLReports() {
   const downloadReportsExcel = async () => {
     setDownloadLoading(true);
     try {
-      const response = await axios.get("http://localhost:5000/api/prl/reports/excel", {
+      const response = await axios.get("https://luct-reporting-cfvn.onrender.com/api/prl/reports/excel", {
         headers: getHeaders(),
         responseType: 'blob'
       });
@@ -135,7 +135,7 @@ function PRLReports() {
   const downloadSummaryExcel = async () => {
     setDownloadLoading(true);
     try {
-      const response = await axios.get("http://localhost:5000/api/prl/reports/summary-excel", {
+      const response = await axios.get("https://luct-reporting-cfvn.onrender.com/api/prl/reports/summary-excel", {
         headers: getHeaders(),
         responseType: 'blob'
       });
@@ -170,7 +170,7 @@ function PRLReports() {
     try {
       setSubmitting(true);
       
-      await axios.post("http://localhost:5000/api/prl/feedback", {
+      await axios.post("https://luct-reporting-cfvn.onrender.com/api/prl/feedback", {
         report_id: reportId,
         feedback: feedback,
         prl_id: user.id
@@ -215,7 +215,7 @@ function PRLReports() {
         date_of_lecture: newReport.date_of_lecture || new Date().toISOString().split('T')[0]
       };
 
-      const response = await axios.post("http://localhost:5000/api/reports", reportData, {
+      const response = await axios.post("https://luct-reporting-cfvn.onrender.com/api/reports", reportData, {
         headers: getHeaders()
       });
 
