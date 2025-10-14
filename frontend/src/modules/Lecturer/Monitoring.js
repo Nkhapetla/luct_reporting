@@ -24,7 +24,7 @@ function Monitoring() {
           return;
         }
 
-        console.log("👨‍🏫 Fetching monitoring data for lecturer:", user.id);
+        console.log(" Fetching monitoring data for lecturer:", user.id);
 
         // Fetch attendance data for lecturer's courses
         const response = await axios.get(`https://luct-reporting-cfvn.onrender.com/api/lecturer/monitoring/${user.id}`, {
@@ -70,12 +70,12 @@ function Monitoring() {
 
   const stats = calculateStats(filteredData);
 
-  if (loading) return <div className="loading">🔄 Loading monitoring data...</div>;
+  if (loading) return <div className="loading"> Loading monitoring data...</div>;
   if (error) return <div className="error">❌ {error}</div>;
 
   return (
     <div className="monitoring-container">
-      <h2 className="monitoring-title">📊 Class Monitoring & Attendance</h2>
+      <h2 className="monitoring-title"> Class Monitoring & Attendance</h2>
 
       {/* Statistics Summary */}
       <div className="monitoring-stats">
