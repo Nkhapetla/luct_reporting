@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 // Change this to your live backend URL in production
-const API_BASE_URL = "http://localhost:5000"; // or your production URL
+const API_BASE_URL = "https://luct-reporting-cfvn.onrender.com"; // or your production URL
 
 function LecturerClassRating() {
   const [classes, setClasses] = useState([]);
@@ -44,7 +44,7 @@ function LecturerClassRating() {
         }
 
         setLoadingData(true);
-        console.log("🔄 Fetching data for lecturer:", user.id);
+        console.log(" Fetching data for lecturer:", user.id);
 
         const [classesResponse, coursesResponse] = await Promise.all([
           api.get(`/api/lecturer/classes/${user.id}`),
@@ -92,7 +92,7 @@ function LecturerClassRating() {
 
       setLoading(true);
       try {
-        console.log("🔄 Fetching courses for class:", form.class_id);
+        console.log(" Fetching courses for class:", form.class_id);
 
         const response = await api.get(`/api/lecturer/class/${form.class_id}/courses/${user.id}`);
         if (isMounted) {
@@ -138,7 +138,7 @@ function LecturerClassRating() {
         comment: form.comment || ""
       };
 
-      console.log("⭐ Submitting class rating:", ratingData);
+      console.log(" Submitting class rating:", ratingData);
 
       await api.post("/api/lecturer/class-rating", ratingData);
 
@@ -184,13 +184,13 @@ function LecturerClassRating() {
 
   if (loadingData) return (
     <div className="rating-container">
-      <div className="loading">🔄 Loading your teaching data...</div>
+      <div className="loading"> Loading your teaching data...</div>
     </div>
   );
 
   return (
     <div className="rating-container">
-      <h2 className="rating-title">⭐ Rate Your Teaching Experience</h2>
+      <h2 className="rating-title"> Rate Your Teaching Experience</h2>
       <p>As a lecturer, you can rate your teaching experience for specific classes and courses.</p>
 
       {error && <div className="error-message"><strong>Error:</strong> {error}</div>}
