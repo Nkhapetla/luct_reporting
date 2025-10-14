@@ -14,7 +14,7 @@ function PRLCourses() {
       try {
         setLoading(true);
         
-        console.log("📚 PRL fetching courses with lecturer data...");
+        console.log(" PRL fetching courses with lecturer data...");
         
         // First try the PRL courses endpoint that includes lecturer names
         const response = await axios.get("https://luct-reporting-cfvn.onrender.com/api/prl/courses", {
@@ -86,7 +86,7 @@ function PRLCourses() {
 
   return (
     <div className="prl-section">
-      <h2>📚 Courses Management</h2>
+      <h2> Courses Management</h2>
       <div className="section-info">
         <p>Viewing all courses in {userStream}</p>
       </div>
