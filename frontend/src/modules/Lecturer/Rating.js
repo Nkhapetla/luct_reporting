@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-// Change this to your live backend URL in production
-const API_BASE_URL = "http://localhost:5000"; // or your production URL
+// Backend base URL
+const API_BASE_URL = "https://luct-reporting-cfvn.onrender.com";
 
 function LecturerClassRating() {
   const [classes, setClasses] = useState([]);
@@ -124,7 +124,9 @@ function LecturerClassRating() {
     e.preventDefault();
 
     if (!user) return setError("Please log in to submit a rating");
-    if (!form.course_id || !form.rating) return setError("Please select a course and provide a rating");
+    if (!form.class_id || !form.course_id || !form.rating) {
+      return setError("Please select a class, course, and rating");
+    }
 
     setLoading(true);
     setError(null);
@@ -132,8 +134,8 @@ function LecturerClassRating() {
     try {
       const ratingData = {
         lecturer_id: user.id,
-        class_id: form.class_id || null,
-        course_id: form.course_id,
+        class_id: parseInt(form.class_id),
+        course_id: parseInt(form.course_id),
         rating: parseInt(form.rating),
         comment: form.comment || ""
       };
@@ -161,7 +163,7 @@ function LecturerClassRating() {
   };
 
   // Determine courses to show
-  const availableCourses = form.class_id ? classCourses : allCourses;
+  const availableCourses = form.class_id ? classCourses : [];
 
   // Selected class & course
   const selectedClass = classes.find(cls => cls.class_id?.toString() === form.class_id?.toString());
@@ -199,12 +201,25 @@ function LecturerClassRating() {
 
         {/* Class Selection */}
         <div className="form-group">
-          <label htmlFor="class_id">Select Class (Optional):</label>
-          <select id="class_id" name="class_id" value={form.class_id} onChange={handleChange} disabled={loading}>
-            <option value="">-- All Classes --</option>
-            {uniqueClasses.map(cls => <option key={cls.class_id} value={cls.class_id}>{cls.class_name}</option>)}
+          <label htmlFor="class_id">Select Class: *</label>
+          <select
+            id="class_id"
+            name="class_id"
+            value={form.class_id}
+            onChange={handleChange}
+            required
+            disabled={loading}
+          >
+            <option value="">-- Select Class --</option>
+            {uniqueClasses.map(cls => (
+              <option key={cls.class_id} value={cls.class_id}>
+                {cls.class_name}
+              </option>
+            ))}
           </select>
-          <div className="form-hint">{form.class_id ? "Showing courses for selected class" : "Showing all your courses"}</div>
+          <div className="form-hint">
+            {form.class_id ? "Showing courses for selected class" : "Select a class to load its courses"}
+          </div>
         </div>
 
         {/* Course Selection */}
@@ -216,7 +231,7 @@ function LecturerClassRating() {
             value={form.course_id}
             onChange={handleChange}
             required
-            disabled={loading || (form.class_id && classCourses.length === 0)}
+            disabled={loading || !form.class_id || (form.class_id && classCourses.length === 0)}
           >
             <option value="">-- Select Course --</option>
             {availableCourses.map(course => (
@@ -227,7 +242,7 @@ function LecturerClassRating() {
           </select>
           {loading && <div className="loading-text">Loading courses...</div>}
           {form.class_id && classCourses.length === 0 && !loading && <div className="form-hint">No courses found for this class</div>}
-          {!form.class_id && allCourses.length === 0 && <div className="form-hint">No courses assigned to you</div>}
+          {!form.class_id && <div className="form-hint">Please select a class first</div>}
         </div>
 
         {/* Details */}
