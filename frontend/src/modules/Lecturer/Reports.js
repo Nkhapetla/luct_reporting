@@ -43,7 +43,7 @@ function Reports() {
   // Create axios instance with useCallback to prevent recreation on every render
   const api = useCallback(() => {
     return axios.create({
-      baseURL: "http://localhost:5000",
+      baseURL: "https://luct-reporting-cfvn.onrender.com",
       headers: {
         "x-user-role": user?.role || "",
       },
