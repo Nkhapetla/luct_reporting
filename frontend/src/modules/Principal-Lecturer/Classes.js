@@ -15,7 +15,7 @@ function PRLClasses() {
       setLoading(true);
       setError(null);
       
-      console.log("🏫 PRL fetching classes for stream:", userStream);
+      console.log(" PRL fetching classes for stream:", userStream);
       
       // Use the PRL classes endpoint - it should already filter by stream
       const response = await axios.get("https://luct-reporting-cfvn.onrender.com/api/prl/classes", {
@@ -23,7 +23,7 @@ function PRLClasses() {
         timeout: 10000
       });
       
-      console.log("📦 Raw data from API:", response.data);
+      console.log(" Raw data from API:", response.data);
       
       // Since the backend should already filter by PRL's stream, use all returned classes
       let filteredClasses = response.data || [];
@@ -187,9 +187,9 @@ function PRLClasses() {
   return (
     <div className="prl-section">
       <div className="section-header">
-        <h2>🏫 Classes Management</h2>
+        <h2> Classes Management</h2>
         <button onClick={handleRefresh} className="refresh-button" disabled={loading}>
-          🔄 {loading ? 'Refreshing...' : 'Refresh'}
+           {loading ? 'Refreshing...' : 'Refresh'}
         </button>
       </div>
       
@@ -210,21 +210,21 @@ function PRLClasses() {
             </div>
           </div>
           <div className="stat-card">
-            <div className="stat-icon">👥</div>
+            <div className="stat-icon"></div>
             <div className="stat-content">
               <h3>{statistics.totalStudents}</h3>
               <p>Total Students</p>
             </div>
           </div>
           <div className="stat-card">
-            <div className="stat-icon">📚</div>
+            <div className="stat-icon"></div>
             <div className="stat-content">
               <h3>{statistics.totalStreamCourses}</h3>
               <p>Stream Courses</p>
             </div>
           </div>
           <div className="stat-card">
-            <div className="stat-icon">🎯</div>
+            <div className="stat-icon"></div>
             <div className="stat-content">
               <h3>{statistics.totalCourses}</h3>
               <p>Total Courses</p>
@@ -241,7 +241,7 @@ function PRLClasses() {
 
       {classes.length === 0 && !loading && (
         <div className="no-data">
-          <div className="no-data-icon">🏫</div>
+          <div className="no-data-icon"></div>
           <p>No classes found with courses in {userStream}.</p>
           <p className="info-note">
             Classes will appear here when courses from your stream are assigned to them.
@@ -277,15 +277,15 @@ const ClassCard = ({ classData, userStream }) => {
         <h3>{classData.class_name}</h3>
         <div className="class-badges">
           <span className="student-count">
-            👥 {classData.total_registered} students
+             {classData.total_registered} students
           </span>
           {hasStreamCourses && userStream !== "All Streams" && (
             <span className="stream-courses-badge">
-              📚 {classData.stream_courses_count} stream course{classData.stream_courses_count !== 1 ? 's' : ''}
+               {classData.stream_courses_count} stream course{classData.stream_courses_count !== 1 ? 's' : ''}
             </span>
           )}
           {isOverCapacity && (
-            <span className="capacity-warning">⚠️ Over Capacity</span>
+            <span className="capacity-warning"> Over Capacity</span>
           )}
         </div>
       </div>
