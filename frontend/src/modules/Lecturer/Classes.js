@@ -23,7 +23,7 @@ function Classes() {
           return;
         }
 
-        console.log("👨‍🏫 Fetching teaching data for lecturer:", user.id);
+        console.log(" Fetching teaching data for lecturer:", user.id);
 
         // Fetch classes and courses taught by this lecturer
         const response = await axios.get(
@@ -83,7 +83,7 @@ function Classes() {
 
   return (
     <div className="classes-container">
-      <h2 className="classes-title">📚 My Teaching Schedule</h2>
+      <h2 className="classes-title"> My Teaching Schedule</h2>
       
       {classArray.length === 0 ? (
         <div className="no-classes">
