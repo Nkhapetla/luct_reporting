@@ -21,7 +21,7 @@ function ProgramLeaderDashboard() {
     <div className="pl-dashboard-container">
       {/* Header */}
       <header className="pl-dashboard-header">
-        <h1>📊 Program Leader Dashboard</h1>
+        <h1> Program Leader Dashboard</h1>
         <button onClick={handleLogout} className="logout-btn">
           Logout
         </button>
@@ -33,37 +33,37 @@ function ProgramLeaderDashboard() {
           to="courses"
           className={location.pathname.includes("courses") ? "active" : ""}
         >
-         📘 Courses
+          Courses
         </Link>
         <Link
           to="reports"
           className={location.pathname.includes("reports") ? "active" : ""}
         >
-         📝 Reports
+          Reports
         </Link>
         <Link
           to="monitoring"
           className={location.pathname.includes("monitoring") ? "active" : ""}
         >
-          📊Monitoring
+          Monitoring
         </Link>
         <Link
           to="classes"
           className={location.pathname.includes("classes") ? "active" : ""}
         >
-         🏫 Classes
+          Classes
         </Link>
         <Link
           to="lectures"
           className={location.pathname.includes("lectures") ? "active" : ""}
         >
-         👩‍🏫 Lectures
+          Lectures
         </Link>
         <Link
           to="rating"
           className={location.pathname.includes("rating") ? "active" : ""}
         >
-         ⭐ Rating
+          Rating
         </Link>
       </nav>
 
