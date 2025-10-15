@@ -17,7 +17,7 @@ function StudentDashboard() {
     <div className="student-dashboard">
       {/* Header */}
       <header className="student-header">
-        <h1>🎓 Student Dashboard</h1>
+        <h1> Student Dashboard</h1>
         <button onClick={handleLogout} className="logout-btn">Logout</button>
       </header>
 
@@ -27,13 +27,13 @@ function StudentDashboard() {
           to="monitoring"
           className={location.pathname.includes("monitoring") ? "active" : ""}
         >
-          📊 Monitoring
+           Monitoring
         </Link>
         <Link
           to="rating"
           className={location.pathname.includes("rating") ? "active" : ""}
         >
-          ⭐ Rating
+           Rating
         </Link>
       </nav>
 
