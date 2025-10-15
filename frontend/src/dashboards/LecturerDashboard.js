@@ -19,7 +19,7 @@ function LecturerDashboard() {
     <div className="dashboard-container">
       {/* Header */}
       <div className="dashboard-header">
-        <h1>👩‍🏫 Lecturer Dashboard</h1>
+        <h1> Lecturer Dashboard</h1>
         <button onClick={handleLogout} className="logout-btn">
           Logout
         </button>
@@ -28,16 +28,16 @@ function LecturerDashboard() {
       {/* Navigation */}
       <nav className="dashboard-nav">
         <Link to="classes" className={location.pathname.includes("classes") ? "active" : ""}>
-          📘 Classes
+           Classes
         </Link>
         <Link to="reports" className={location.pathname.includes("reports") ? "active" : ""}>
-          📝 Reports
+           Reports
         </Link>
         <Link to="monitoring" className={location.pathname.includes("monitoring") ? "active" : ""}>
-          📊 Monitoring
+           Monitoring
         </Link>
         <Link to="rating" className={location.pathname.includes("rating") ? "active" : ""}>
-          ⭐ Rating
+           Rating
         </Link>
       </nav>
 
