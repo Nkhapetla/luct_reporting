@@ -25,7 +25,7 @@ function PRLRating() {
     try {
       setLoading(true);
       setError(null);
-      console.log("⭐ PRL fetching ratings for stream:", userStream);
+      console.log(" PRL fetching ratings for stream:", userStream);
 
       // Fetch from both tables using correct endpoints
       const [lecturerClassResponse, ratingResponse] = await Promise.all([
@@ -208,7 +208,7 @@ function PRLRating() {
   return (
     <div className="prl-ratings">
       <div className="ratings-header">
-        <h2>⭐ Ratings & Feedback Dashboard - {userStream}</h2>
+        <h2> Ratings & Feedback Dashboard - {userStream}</h2>
         <p className="data-source">📊 Displaying real data from database</p>
       </div>
       
@@ -279,13 +279,13 @@ function PRLRating() {
           className={activeTab === "lecturer_class_ratings" ? "tab-active" : ""}
           onClick={() => setActiveTab("lecturer_class_ratings")}
         >
-          👨‍🏫 Lecturer Self-Ratings ({lecturerClassRatings.length})
+           Lecturer Self-Ratings ({lecturerClassRatings.length})
         </button>
         <button 
           className={activeTab === "rating" ? "tab-active" : ""}
           onClick={() => setActiveTab("rating")}
         >
-          👥 Student Ratings ({rating.length})
+           Student Ratings ({rating.length})
         </button>
       </div>
 
