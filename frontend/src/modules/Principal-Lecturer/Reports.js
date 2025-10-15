@@ -54,7 +54,7 @@ function PRLReports() {
       setLoading(true);
       setError(null);
       
-      console.log("📊 PRL fetching reports for stream:", userStream);
+      console.log(" PRL fetching reports for stream:", userStream);
       
       const response = await axios.get("https://luct-reporting-cfvn.onrender.com/api/prl/reports", {
         headers: getHeaders()
@@ -348,7 +348,7 @@ function PRLReports() {
     <div className="prl-section">
       <div className="section-header">
         <div className="header-content">
-          <h2>📊 Reports Management</h2>
+          <h2>Reports Management</h2>
           <p className="section-subtitle">
             Managing reports for {userStream}
           </p>
@@ -396,7 +396,7 @@ function PRLReports() {
           className={`tab ${activeTab === "view" ? "active" : ""}`}
           onClick={() => setActiveTab("view")}
         >
-          📋 View Reports
+           View Reports
         </button>
         <button 
           className={`tab ${activeTab === "create" ? "active" : ""}`}
@@ -530,7 +530,7 @@ function PRLReports() {
 
               {/* Lecturers Overview */}
               <div className="lecturers-section">
-                <h3>👨‍🏫 Lecturers Overview</h3>
+                <h3> Lecturers Overview</h3>
                 <div className="lecturers-grid">
                   {summary.lecturers.slice(0, 6).map((lecturer, index) => {
                     const lecturerReports = reports.filter(r => r.lecturer_name === lecturer);
